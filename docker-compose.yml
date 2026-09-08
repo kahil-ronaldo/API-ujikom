@@ -1,0 +1,58 @@
+
+services:
+  # 1. SERVER DATABASE
+  mysql-server:
+    image: mysql:8.0
+    container_name: MySQL-API
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: API_ujikom
+      MYSQL_USER: api_ujikom
+      MYSQL_PASSWORD: api_ujikom
+      MYSQL_ROOT_PASSWORD: passwordroot
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - API-UJIKOM
+
+  # 2. SERVER BACKEND (LARAVEL)
+  app-laravel:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: laravel-api
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./backend:/var/www
+    ports:
+      - "8000:8000"
+    command: php artisan serve --host=0.0.0.0 --port=8000
+    depends_on:
+      - mysql-server
+    networks:
+      - API-UJIKOM
+
+  # 3. SERVER PHPMYADMIN
+  phpMyadmin:
+    image: phpmyadmin:latest
+    container_name: PhpMyadmin-API
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql-server
+      PMA_PORT: 3306
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql-server
+    networks:
+      - API-UJIKOM
+
+volumes:
+  db_data:
+
+networks:
+  API-UJIKOM:
+    driver: bridge
