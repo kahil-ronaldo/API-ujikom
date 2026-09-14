@@ -318,10 +318,10 @@ class PetugasController extends Controller
             $query->where("status", $status);
         })
         ->when($dari, function ($query, $dari) {
-            $query->whereDate("tgl_pinjam", ">=", $dari);
+            $query->whereDate("tanggal_pinjam", ">=", $dari);
         })
         ->when($sampai, function ($query, $sampai) {
-            $query->whereDate("tgl_pinjam", "<=", $sampai);
+            $query->whereDate("tanggal_pinjam", "<=", $sampai);
         })
         ->latest()
         ->get();

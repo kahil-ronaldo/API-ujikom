@@ -13,7 +13,7 @@ class Kategori extends Model
         'nama_kategori',
     ];
 
-    public function alat(): HasMany
+    public function alats(): HasMany
     {
         return $this->hasMany(Alat::class);
     }
