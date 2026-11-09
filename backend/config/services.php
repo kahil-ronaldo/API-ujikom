@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'atria' => [
+        'base_url' => env('ATRIA_BASE_URL', 'https://api.atria-asi.ai/v1'),
+        'api_key' => env('ATRIA_API_KEY'),
+        'model' => env('ATRIA_MODEL', 'Atria-Dawn-Preview'),
+    ],
 
     /*
     |--------------------------------------------------------------------------

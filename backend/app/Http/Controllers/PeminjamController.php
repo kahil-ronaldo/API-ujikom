@@ -30,8 +30,8 @@ class PeminjamController extends Controller
             // Buat header peminjaman
             $peminjaman = Peminjaman::create([
                 'user_id' => auth()->id(),
-                'tgl_pinjam' => now(),
-                'tgl_kembali_plan' => $request->tgl_kembali_plan,
+                'tanggal_pinjam' => now(),
+                'tanggal_kembali_plan' => $request->tgl_kembali_plan,
                 'status' => 'diajukan',
             ]);
 

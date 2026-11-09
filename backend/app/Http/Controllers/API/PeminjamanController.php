@@ -37,8 +37,8 @@ class PeminjamanController extends Controller
             $user = auth()->user();
             $peminjaman = Peminjaman::create([
                 'user_id' => $user->id,
-                'tgl_pinjam' => now()->toDateString(),
-                'tgl_kembali_plan' => $request->tgl_kembali_plan,
+                'tanggal_pinjam' => now()->toDateString(),
+                'tanggal_kembali_plan' => $request->tgl_kembali_plan,
                 'status' => 'diajukan',
             ]);
 
@@ -90,7 +90,7 @@ class PeminjamanController extends Controller
         }
         try {
             DB::transaction(function () use ($request, $peminjaman) {
-                $peminjaman->update(['tgl_kembali_plan' => $request->tgl_kembali_plan,]);
+                $peminjaman->update(['tanggal_kembali_plan' => $request->tgl_kembali_plan,]);
                 $peminjaman->detailPinjam()->delete();
                 foreach ($request->items as $item) {
                     // Ditambahkan lockForUpdate agar konsisten aman dari race condition saat update data draft

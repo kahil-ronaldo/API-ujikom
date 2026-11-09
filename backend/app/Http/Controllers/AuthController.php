@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -53,4 +54,32 @@ class AuthController extends Controller
 
         return redirect()->route('login');
     }
+
+    // Menampilkan Form Register
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+
+    // Memproses Register Peminjam
+    public function register(Request $request)
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'role' => 'peminjam',
+        ]);
+
+        return redirect()->route('login')
+            ->with('success', 'Registrasi berhasil! Silakan login.');
+    }
+
+
 }

@@ -13,16 +13,16 @@ class Peminjaman extends Model
 
     protected $fillable = [
         'user_id',
-        'tgl_pinjam',
-        'tgl_kembali_plan',
+        'tanggal_pinjam',
+        'tanggal_kembali_plan',
         'status',
     ];
 
     protected function casts(): array
     {
         return [
-            'tgl_pinjam' => 'date:Y-m-d',
-            'tgl_kembali_plan' => 'date:Y-m-d',
+            'tanggal_pinjam' => 'date:Y-m-d',
+            'tanggal_kembali_plan' => 'date:Y-m-d',
         ];
     }
 
